@@ -1,3 +1,8 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 import { Invoice } from './classes/Invoice.js';
 import { Payment } from './classes/Payment.js';
 import { ListTemplate } from './classes/ListTemplate.js';
@@ -12,32 +17,14 @@ var ul = document.querySelector('ul');
 var list = new ListTemplate(ul);
 form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var values;
+    values = [tofrom.value, details.value, amount.valueAsNumber];
     var doc;
     if (type.value === 'invoice') {
-        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new (Invoice.bind.apply(Invoice, __spreadArray([void 0], values)))();
     }
     else {
-        doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new (Payment.bind.apply(Payment, __spreadArray([void 0], values)))();
     }
     list.render(doc, type.value, 'end');
 });
-// Enums
-var ResourceType;
-(function (ResourceType) {
-    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
-    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
-    ResourceType[ResourceType["FILM"] = 2] = "FILM";
-    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
-    ResourceType[ResourceType["PERSON"] = 4] = "PERSON";
-})(ResourceType || (ResourceType = {}));
-var docOne = {
-    uid: 1,
-    resourceType: ResourceType.BOOK,
-    data: { title: 'name of the wind' },
-};
-var docTwo = {
-    uid: 10,
-    resourceType: ResourceType.PERSON,
-    data: { name: 'yoshi' },
-};
-console.log(docOne, docTwo);
