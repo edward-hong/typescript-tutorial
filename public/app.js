@@ -1,3 +1,18 @@
+var me = {
+    name: 'Edward',
+    age: 31,
+    speak: function (text) {
+        console.log(text);
+    },
+    spend: function (amount) {
+        console.log('I spent', amount);
+        return amount;
+    },
+};
+var greetPerson = function (person) {
+    console.log('hello', person.name);
+};
+greetPerson(me);
 import { Invoice } from './classes/Invoice.js';
 var invOne = new Invoice('mario', 'work on the mario website', 250);
 var invTwo = new Invoice('luigi', 'work on the luigi website', 300);
