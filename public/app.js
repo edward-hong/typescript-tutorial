@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 import { Invoice } from './classes/Invoice.js';
 import { Payment } from './classes/Payment.js';
 import { ListTemplate } from './classes/ListTemplate.js';
@@ -32,20 +21,23 @@ form.addEventListener('submit', function (e) {
     }
     list.render(doc, type.value, 'end');
 });
-// Generics
-var addUID = function (obj) {
-    var uid = Math.floor(Math.random() * 100);
-    return __assign(__assign({}, obj), { uid: uid });
-};
-var docOne = addUID({ name: 'yoshi', age: 40 });
-var docThree = {
+// Enums
+var ResourceType;
+(function (ResourceType) {
+    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
+    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
+    ResourceType[ResourceType["FILM"] = 2] = "FILM";
+    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
+    ResourceType[ResourceType["PERSON"] = 4] = "PERSON";
+})(ResourceType || (ResourceType = {}));
+var docOne = {
     uid: 1,
-    resourceName: 'person',
-    data: { name: 'Edward' },
+    resourceType: ResourceType.BOOK,
+    data: { title: 'name of the wind' },
 };
-var docFour = {
-    uid: 2,
-    resourceName: 'shoppingList',
-    data: ['bread', 'milk', 'toilet roll'],
+var docTwo = {
+    uid: 10,
+    resourceType: ResourceType.PERSON,
+    data: { name: 'yoshi' },
 };
-console.log(docThree, docFour);
+console.log(docOne, docTwo);
